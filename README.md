@@ -89,6 +89,8 @@ The installer stops and restarts CasaOS services while upgrading, so back up imp
 cat /var/lib/casaos/fork-release
 ```
 
+The command should print the fork release tag installed on the system, such as `v0.4.19` for the current release.
+
 Future updates can be installed from the CasaOS dashboard or by running the same command again. Do not use `get.casaos.io/update` after migrating, because it installs IceWhale's upstream component bundle.
 
 ## Fork Changelog
