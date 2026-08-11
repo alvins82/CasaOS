@@ -117,6 +117,7 @@ CasaOS fully supports ZimaBoard, Intel NUC, and Raspberry Pi. Also, more compute
 
 Official Support
 - Debian 12 (✅ Tested, Recommended)
+- Ubuntu Server 26.04 (✅ Tested by this fork)
 - Ubuntu Server 20.04 (✅ Tested)
 - Raspberry Pi OS (✅ Tested)
 
@@ -129,33 +130,30 @@ Community Support
 
 ### Quick Setup CasaOS
 
-Freshly install a system from the list above and run this command:
+Install this fork with the maintained [CasaOS-Install](https://github.com/alvins82/CasaOS-Install) release so that all component compatibility fixes are included.
+
+The recommended method verifies the installer before running it as root:
 
 ```sh
-wget -qO- https://get.casaos.io | sudo bash
+curl -fL -o install.sh \
+  https://github.com/alvins82/CasaOS-Install/releases/latest/download/install.sh
+curl -fL -o install.sh.sha256 \
+  https://github.com/alvins82/CasaOS-Install/releases/latest/download/install.sh.sha256
+sha256sum --check install.sh.sha256
+sudo bash install.sh
 ```
 
-or
+For a disposable test system, the shorter form is:
 
 ```sh
-curl -fsSL https://get.casaos.io | sudo bash
+curl -fsSL https://github.com/alvins82/CasaOS-Install/releases/latest/download/install.sh | sudo bash
 ```
+
+Do not use `get.casaos.io` to install this fork; that endpoint installs IceWhaleTech's upstream component bundle.
 
 ### Update CasaOS
 
-CasaOS can be updated from the User Interface (UI), via `Settings ... Update`.  
-
-Alternatively it can be updated from a terminal session.  To update from a terminal session, it must be done either from a secure shell (ssh) session to the device or from a directly attached terminal and keyboard to the device running CasaOS, this cannot be done from the terminal via the CasaOS User Interface (UI).  To update to the latest release of CasaOS from a terminal session run this command:
-
-```sh
-wget -qO- https://get.casaos.io/update | sudo bash
-```
-
-or
-
-```sh
-curl -fsSL https://get.casaos.io/update | sudo bash
-```
+Updates for this fork are published through [CasaOS-Install releases](https://github.com/alvins82/CasaOS-Install/releases). Until the compatibility changes are available upstream, the upstream UI or `get.casaos.io/update` path may replace patched components. Review the fork's release notes and repeat the verified installation procedure above when applying a newer fork release.
 
 To determine version of CasaOS from a terminal session run this command:
 
