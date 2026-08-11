@@ -14,9 +14,9 @@ func TestParseReleaseVersion(t *testing.T) {
 		version   string
 		changeLog string
 	}{
-		{name: "release manifest", payload: `{"version":"v0.4.17-ubuntu26.3","change_log":"Fork updater"}`, version: "v0.4.17-ubuntu26.3", changeLog: "Fork updater"},
+		{name: "release manifest", payload: `{"version":"v0.4.18","change_log":"Fork updater"}`, version: "v0.4.18", changeLog: "Fork updater"},
 		{name: "legacy API", payload: `{"data":{"version":"0.4.15","change_log":"Upstream"}}`, version: "0.4.15", changeLog: "Upstream"},
-		{name: "GitHub API", payload: `{"tag_name":"v0.4.17-ubuntu26.3","body":"Release body"}`, version: "v0.4.17-ubuntu26.3", changeLog: "Release body"},
+		{name: "GitHub API", payload: `{"tag_name":"v0.4.18","body":"Release body"}`, version: "v0.4.18", changeLog: "Release body"},
 	}
 
 	for _, test := range tests {

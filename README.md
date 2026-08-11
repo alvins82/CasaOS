@@ -77,6 +77,7 @@
 
 ## Fork Changelog
 
+- **2026-08-11 — [v0.4.18](https://github.com/alvins82/CasaOS-Install/releases/tag/v0.4.18):** Made release naming platform-neutral while retaining automatic distro detection and amd64, arm64, and armv7 packages in one installer.
 - **2026-08-11 — [v0.4.17-ubuntu26.3](https://github.com/alvins82/CasaOS-Install/releases/tag/v0.4.17-ubuntu26.3):** Routed dashboard update discovery and installation through CasaOS-Install releases so upstream updates cannot replace fork patches.
 - **2026-08-11 — [v0.4.17-ubuntu26.2](https://github.com/alvins82/CasaOS-Install/releases/tag/v0.4.17-ubuntu26.2):** Added Ubuntu 26.04 and Docker 24–29 compatibility, multi-architecture patched components, clean-install and reboot validation, and a single-command installer.
 
@@ -149,7 +150,7 @@ Do not use `get.casaos.io` to install this fork; that endpoint installs IceWhale
 
 ### Update CasaOS
 
-Starting with `v0.4.17-ubuntu26.3`, the CasaOS dashboard checks [CasaOS-Install releases](https://github.com/alvins82/CasaOS-Install/releases) and installs updates from this fork, so upstream updates cannot replace the patched components. You can also repeat the installation command above at any time.
+The CasaOS dashboard checks [CasaOS-Install releases](https://github.com/alvins82/CasaOS-Install/releases) and installs updates from this fork, so upstream updates cannot replace the patched components. Release tags are platform-neutral starting with `v0.4.18`; the installer detects the operating system and architecture at runtime. You can also repeat the installation command above at any time.
 
 Existing `v0.4.17-ubuntu26.2` installations must run the installation command above once to enable the fork-aware updater; future releases can then be applied from the dashboard.
 
