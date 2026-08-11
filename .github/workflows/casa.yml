@@ -18,7 +18,7 @@ on:
 #    tags:
 #      - 'v*'
 env:
-  REPO_URL: https://github.com/IceWhaleTech/CasaOS.git
+  REPO_URL: https://github.com/alvins82/CasaOS.git
   REPO_BRANCH: main
   PACK_SH_URL: https://raw.githubusercontent.com/jerrykuku/actions-casa/main/pack.sh
   PACK_SH: pack.sh
