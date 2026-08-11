@@ -75,6 +75,24 @@
     </kbd>
 </p>
 
+## Migrate from official CasaOS
+
+If CasaOS was installed from IceWhale's official installer, you can migrate to a released version of this fork in place. Run the command from an SSH session or a directly attached terminal; do not uninstall CasaOS first.
+
+Choose a tag from the [CasaOS-Install releases](https://github.com/alvins82/CasaOS-Install/releases). For example, to migrate to `v0.4.19`:
+
+```sh
+wget -qO- https://github.com/alvins82/CasaOS-Install/releases/download/v0.4.19/install.sh | sudo bash
+```
+
+Replace `v0.4.19` with the released tag you want. The installer stops and restarts CasaOS services while upgrading, so back up important data first. After it finishes, verify the installed fork release with:
+
+```sh
+cat /var/lib/casaos/fork-release
+```
+
+Future updates can be installed from the CasaOS dashboard or by running the installer for another released tag. Do not use `get.casaos.io/update` after migrating, because it installs IceWhale's upstream component bundle.
+
 ## Fork Changelog
 
 - **2026-08-11 — [v0.4.19](https://github.com/alvins82/CasaOS-Install/releases/tag/v0.4.19):** Fixed in-app updates by running the installer outside the CasaOS service process group and preserving upgrade logs. PRs: [CasaOS #9](https://github.com/alvins82/CasaOS/pull/9), [installer #10](https://github.com/alvins82/CasaOS-Install/pull/10).
