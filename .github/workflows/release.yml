@@ -3,23 +3,77 @@ name: goreleaser
 on:
   push:
     tags:
-      - v*.*.*
+      - "v*.*.*"
 
 permissions:
   contents: write
+
 jobs:
-  call-workflow-passing-data:
-    uses: IceWhaleTech/github/.github/workflows/go_release.yml@main
-    with:
-      project-name: CasaOS
-      file-name: casaos
-    secrets:
-      GoogleID: ${{ secrets.GoogleID }} 
-      GoogleSecret: ${{ secrets.GoogleSecret }}
-      DropboxKey: ${{ secrets.DropboxKey }}
-      DropboxSecret: ${{ secrets.DropboxSecret }}
-      OneDriveID: ${{ secrets.OneDriveID }}
-      OneDriveSecret: ${{ secrets.OneDriveSecret }}
-      OneDrivePublic: ${{ secrets.OneDrivePublic }}
-      OSS_KEY_ID: ${{ secrets.OSS_KEY_ID }}
-      OSS_KEY_SECRET: ${{ secrets.OSS_KEY_SECRET }}
+  release:
+    name: Build and publish CasaOS packages
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Build release packages
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+
+          output_dir=/tmp/casaos-release
+          mkdir -p "$output_dir"
+
+          build_target() {
+            local target_arch="$1"
+            local goarch="$2"
+            local goarm="${3:-}"
+            local stage_dir
+            local output_file="$output_dir/linux-${target_arch}-casaos-${RELEASE_TAG}.tar.gz"
+
+            stage_dir="$(mktemp -d)"
+            mkdir -p "$stage_dir/build/sysroot/usr/bin"
+            cp -a build "$stage_dir/"
+
+            CGO_ENABLED=0 \
+              GOOS=linux \
+              GOARCH="$goarch" \
+              GOARM="$goarm" \
+              go build \
+                -buildvcs=false \
+                -trimpath \
+                -tags "musl netgo osusergo" \
+                -ldflags "-s -w -X main.commit=${GITHUB_SHA} -X main.date=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+                -o "$stage_dir/build/sysroot/usr/bin/casaos" \
+                .
+
+            tar -C "$stage_dir" -czf "$output_file" build
+            rm -rf "$stage_dir"
+          }
+
+          build_target amd64 amd64
+          build_target arm64 arm64
+          build_target arm-7 arm 7
+          (cd "$output_dir" && sha256sum *.tar.gz > checksums.txt)
+
+      - name: Publish release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: |
+            /tmp/casaos-release/*.tar.gz
+            /tmp/casaos-release/checksums.txt
+          draft: false
+          prerelease: false
+          fail_on_unmatched_files: true
