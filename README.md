@@ -77,6 +77,7 @@
 
 ## Fork Changelog
 
+- **2026-08-11 — [v0.4.17-ubuntu26.3](https://github.com/alvins82/CasaOS-Install/releases/tag/v0.4.17-ubuntu26.3):** Routed dashboard update discovery and installation through CasaOS-Install releases so upstream updates cannot replace fork patches.
 - **2026-08-11 — [v0.4.17-ubuntu26.2](https://github.com/alvins82/CasaOS-Install/releases/tag/v0.4.17-ubuntu26.2):** Added Ubuntu 26.04 and Docker 24–29 compatibility, multi-architecture patched components, clean-install and reboot validation, and a single-command installer.
 
 ## Why do you need Personal Cloud?
@@ -148,12 +149,14 @@ Do not use `get.casaos.io` to install this fork; that endpoint installs IceWhale
 
 ### Update CasaOS
 
-Updates for this fork are published through [CasaOS-Install releases](https://github.com/alvins82/CasaOS-Install/releases). Until the compatibility changes are available upstream, the upstream UI or `get.casaos.io/update` path may replace patched components. Review the fork's release notes and repeat the installation command above when applying a newer fork release.
+Starting with `v0.4.17-ubuntu26.3`, the CasaOS dashboard checks [CasaOS-Install releases](https://github.com/alvins82/CasaOS-Install/releases) and installs updates from this fork, so upstream updates cannot replace the patched components. You can also repeat the installation command above at any time.
 
-To determine version of CasaOS from a terminal session run this command:
+Existing `v0.4.17-ubuntu26.2` installations must run the installation command above once to enable the fork-aware updater; future releases can then be applied from the dashboard.
+
+To check the installed fork release from a terminal, run:
 
 ```sh
-casaos -v
+cat /var/lib/casaos/fork-release
 ```
 
 
