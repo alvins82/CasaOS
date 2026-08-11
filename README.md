@@ -75,6 +75,21 @@
     </kbd>
 </p>
 
+## Fork Changelog
+
+This section records the changes maintained by this fork beyond the upstream [IceWhaleTech/CasaOS](https://github.com/IceWhaleTech/CasaOS) project. New entries will be added at the top.
+
+### 2026-08-11 — Ubuntu 26 and current Docker compatibility
+
+- Added Ubuntu Server 26.04 LTS (`resolute`) installation support across CasaOS, Gateway, UserService, LocalStorage, MessageBus, and AppManagement.
+- Updated AppManagement's Docker SDK and Compose dependencies, retaining normal API negotiation for Docker 24 through Docker 29 compatibility.
+- Published native AppManagement and `appfile2compose` binaries for amd64, arm64, and arm/v7.
+- Removed only CasaOS's obsolete Docker minimum-API override while preserving unrelated Docker configuration.
+- Added SHA-256 validation for every fork-owned component and a `components.lock` file recording the exact source revisions.
+- Validated a clean Ubuntu 26.04 ARM64 installation, Docker Compose app lifecycle, CasaOS services, dashboard, catalog, and reboot recovery.
+- Consolidated installation into one supported `install.sh` entrypoint and documented a single OS-neutral installation command.
+- Published the latest tested bundle as [CasaOS-Install v0.4.17-ubuntu26.2](https://github.com/alvins82/CasaOS-Install/releases/tag/v0.4.17-ubuntu26.2).
+
 ## Why do you need Personal Cloud?
 
 In 2020, the team noticed three important trends:
