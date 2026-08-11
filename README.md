@@ -138,16 +138,7 @@ Install the latest stable release with one command:
 curl -fsSL https://github.com/alvins82/CasaOS-Install/releases/latest/download/install.sh | sudo bash
 ```
 
-This runs the same released `install.sh` on every supported operating system and architecture. For detached checksum verification, download and verify it before running it as root:
-
-```sh
-curl -fL -o install.sh \
-  https://github.com/alvins82/CasaOS-Install/releases/latest/download/install.sh
-curl -fL -o install.sh.sha256 \
-  https://github.com/alvins82/CasaOS-Install/releases/latest/download/install.sh.sha256
-sha256sum --check install.sh.sha256
-sudo bash install.sh
-```
+This runs the same released `install.sh` on every supported operating system and architecture.
 
 Do not use `get.casaos.io` to install this fork; that endpoint installs IceWhaleTech's upstream component bundle.
 
