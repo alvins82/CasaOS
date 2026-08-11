@@ -40,14 +40,14 @@ func TestDetachedUpdateCommand(t *testing.T) {
 }
 
 func TestDetachedUpdateArgs(t *testing.T) {
-	got := detachedUpdateArgs("https://example.com/install.sh", "/var/log/casaos/upgrade.log", "v0.4.19")
+	got := detachedUpdateArgs("https://example.com/install.sh", "/var/log/casaos/upgrade.log", "v0.4.20")
 	want := []string{
 		"--quiet",
 		"--collect",
 		"--unit=casaos-update",
 		"--property=Type=exec",
 		"--setenv=CASAOS_INSTALLER_DETACHED=1",
-		"--description=CasaOS update v0.4.19",
+		"--description=CasaOS update v0.4.20",
 		"/bin/bash",
 		"-c",
 		"set -o pipefail; exec >> '/var/log/casaos/upgrade.log' 2>&1; curl -fsSL 'https://example.com/install.sh' | /bin/bash",

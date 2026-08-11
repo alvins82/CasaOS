@@ -15,13 +15,13 @@ func TestIsVersionNewer(t *testing.T) {
 		current string
 		want    bool
 	}{
-		{name: "platform-neutral migration", latest: "v0.4.19", current: "v0.4.17-ubuntu26.3", want: true},
-		{name: "next release", latest: "v0.4.19", current: "v0.4.18", want: true},
-		{name: "next CasaOS minor", latest: "v0.5.0", current: "v0.4.19", want: true},
-		{name: "same release", latest: "v0.4.19", current: "v0.4.19", want: false},
-		{name: "older compatibility release", latest: "v0.4.18", current: "v0.4.19", want: false},
-		{name: "missing latest", latest: "", current: "v0.4.19", want: false},
-		{name: "invalid latest", latest: "latest", current: "v0.4.19", want: false},
+		{name: "platform-neutral migration", latest: "v0.4.20", current: "v0.4.17-ubuntu26.3", want: true},
+		{name: "next release", latest: "v0.4.20", current: "v0.4.19", want: true},
+		{name: "next CasaOS minor", latest: "v0.5.0", current: "v0.4.20", want: true},
+		{name: "same release", latest: "v0.4.20", current: "v0.4.20", want: false},
+		{name: "older compatibility release", latest: "v0.4.19", current: "v0.4.20", want: false},
+		{name: "missing latest", latest: "", current: "v0.4.20", want: false},
+		{name: "invalid latest", latest: "latest", current: "v0.4.20", want: false},
 	}
 
 	for _, test := range tests {
@@ -39,10 +39,10 @@ func TestCurrentVersionFromFile(t *testing.T) {
 		t.Fatalf("missing version file returned %q", got)
 	}
 
-	if err := os.WriteFile(versionFile, []byte("v0.4.19\n"), 0o600); err != nil {
+	if err := os.WriteFile(versionFile, []byte("v0.4.20\n"), 0o600); err != nil {
 		t.Fatal(err)
 	}
-	if got := currentVersionFromFile(versionFile); got != "v0.4.19" {
+	if got := currentVersionFromFile(versionFile); got != "v0.4.20" {
 		t.Fatalf("installed version returned %q", got)
 	}
 }
