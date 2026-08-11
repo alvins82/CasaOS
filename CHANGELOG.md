@@ -16,6 +16,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.4.20] - 2026-08-12
+
+### Added
+
+- [File] Added a persisted eye toggle for showing or hiding dot-prefixed files and folders in the main file browser. Visible-item totals now include hidden entries when enabled.
+
+### Changed
+
+- [Build] Switched the tracked UI submodule and build paths to the `alvins82/CasaOS-UI` fork ([CasaOS #12](https://github.com/alvins82/CasaOS/pull/12)).
+
+### Fixed
+
+- [OneDrive] Fall back to `createdBy.user.displayName` when Microsoft Graph omits `createdBy.user.email`, and return a clear error when neither identity field is available ([CasaOS #2530](https://github.com/IceWhaleTech/CasaOS/pull/2530)).
+
 ## [0.4.3]
 
 ### Added
