@@ -15,13 +15,13 @@ func TestIsVersionNewer(t *testing.T) {
 		current string
 		want    bool
 	}{
-		{name: "platform-neutral migration", latest: "v0.4.18", current: "v0.4.17-ubuntu26.3", want: true},
+		{name: "platform-neutral migration", latest: "v0.4.19", current: "v0.4.17-ubuntu26.3", want: true},
 		{name: "next release", latest: "v0.4.19", current: "v0.4.18", want: true},
-		{name: "next CasaOS minor", latest: "v0.5.0", current: "v0.4.18", want: true},
-		{name: "same release", latest: "v0.4.18", current: "v0.4.18", want: false},
-		{name: "older compatibility release", latest: "v0.4.17-ubuntu26.3", current: "v0.4.18", want: false},
-		{name: "missing latest", latest: "", current: "v0.4.18", want: false},
-		{name: "invalid latest", latest: "latest", current: "v0.4.18", want: false},
+		{name: "next CasaOS minor", latest: "v0.5.0", current: "v0.4.19", want: true},
+		{name: "same release", latest: "v0.4.19", current: "v0.4.19", want: false},
+		{name: "older compatibility release", latest: "v0.4.18", current: "v0.4.19", want: false},
+		{name: "missing latest", latest: "", current: "v0.4.19", want: false},
+		{name: "invalid latest", latest: "latest", current: "v0.4.19", want: false},
 	}
 
 	for _, test := range tests {

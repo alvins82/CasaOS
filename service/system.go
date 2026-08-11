@@ -7,6 +7,7 @@ import (
 	"io"
 	net2 "net"
 	"os"
+	osExec "os/exec"
 	"path/filepath"
 	"runtime"
 	"strconv"
@@ -35,7 +36,7 @@ import (
 )
 
 type SystemService interface {
-	UpdateSystemVersion(version string)
+	UpdateSystemVersion(version string) error
 	GetSystemConfigDebug() []string
 	GetCasaOSLogs(lineNumber int) string
 	UpdateAssist()
@@ -370,17 +371,43 @@ func (c *systemService) GetNet(physics bool) []string {
 	}
 }
 
-func (s *systemService) UpdateSystemVersion(version string) {
+func (s *systemService) UpdateSystemVersion(version string) error {
 	keyName := "casa_version:" + resolveUpdateVersionURL()
 	Cache.Delete(keyName)
-	if file.Exists(config.AppInfo.LogPath + "/upgrade.log") {
-		os.Remove(config.AppInfo.LogPath + "/upgrade.log")
-	}
-	file.CreateFile(config.AppInfo.LogPath + "/upgrade.log")
-	go command.OnlyExec("curl -fsSL " + shellQuote(resolveUpdateInstallerURL()) + " | bash")
 
-	// s.log.Error(config.AppInfo.ProjectPath + "/shell/tool.sh -r " + version)
-	// s.log.Error(command2.ExecResultStr(config.AppInfo.ProjectPath + "/shell/tool.sh -r " + version))
+	logPath := filepath.Join(config.AppInfo.LogPath, "upgrade.log")
+	if err := os.WriteFile(logPath, nil, 0o644); err != nil {
+		return fmt.Errorf("prepare update log: %w", err)
+	}
+
+	return startDetachedUpdate(resolveUpdateInstallerURL(), logPath, version)
+}
+
+func startDetachedUpdate(installerURL, logPath, version string) error {
+	args := detachedUpdateArgs(installerURL, logPath, version)
+	output, err := osExec.Command("systemd-run", args...).CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("start detached update: %w: %s", err, strings.TrimSpace(string(output)))
+	}
+	return nil
+}
+
+func detachedUpdateArgs(installerURL, logPath, version string) []string {
+	return []string{
+		"--quiet",
+		"--collect",
+		"--unit=casaos-update",
+		"--property=Type=exec",
+		"--setenv=CASAOS_INSTALLER_DETACHED=1",
+		"--description=CasaOS update " + version,
+		"/bin/bash",
+		"-c",
+		detachedUpdateCommand(installerURL, logPath),
+	}
+}
+
+func detachedUpdateCommand(installerURL, logPath string) string {
+	return "set -o pipefail; exec >> " + shellQuote(logPath) + " 2>&1; curl -fsSL " + shellQuote(installerURL) + " | /bin/bash"
 }
 
 func resolveUpdateInstallerURL() string {

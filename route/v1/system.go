@@ -64,7 +64,9 @@ func GetSystemCheckVersion(ctx echo.Context) error {
 func SystemUpdate(ctx echo.Context) error {
 	need, latestVersion := version.IsNeedUpdate(service.MyService.Casa().GetCasaosVersion())
 	if need {
-		service.MyService.System().UpdateSystemVersion(latestVersion.Version)
+		if err := service.MyService.System().UpdateSystemVersion(latestVersion.Version); err != nil {
+			return ctx.JSON(common_err.SERVICE_ERROR, model.Result{Success: common_err.SERVICE_ERROR, Message: err.Error()})
+		}
 	}
 	return ctx.JSON(common_err.SUCCESS, model.Result{Success: common_err.SUCCESS, Message: common_err.GetMsg(common_err.SUCCESS)})
 }
