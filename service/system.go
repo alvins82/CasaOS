@@ -371,22 +371,28 @@ func (c *systemService) GetNet(physics bool) []string {
 }
 
 func (s *systemService) UpdateSystemVersion(version string) {
-	keyName := "casa_version"
+	keyName := "casa_version:" + resolveUpdateVersionURL()
 	Cache.Delete(keyName)
 	if file.Exists(config.AppInfo.LogPath + "/upgrade.log") {
 		os.Remove(config.AppInfo.LogPath + "/upgrade.log")
 	}
 	file.CreateFile(config.AppInfo.LogPath + "/upgrade.log")
-	// go command2.OnlyExec("curl -fsSL https://raw.githubusercontent.com/LinkLeong/casaos-alpha/main/update.sh | bash")
-	if len(config.ServerInfo.UpdateUrl) > 0 {
-		go command.OnlyExec("curl -fsSL " + config.ServerInfo.UpdateUrl + " | bash")
-	} else {
-		osRelease, _ := file.ReadOSRelease()
-		go command.OnlyExec("curl -fsSL https://get.casaos.io/update?t=" + osRelease["MANUFACTURER"] + " | bash")
-	}
+	go command.OnlyExec("curl -fsSL " + shellQuote(resolveUpdateInstallerURL()) + " | bash")
 
 	// s.log.Error(config.AppInfo.ProjectPath + "/shell/tool.sh -r " + version)
 	// s.log.Error(command2.ExecResultStr(config.AppInfo.ProjectPath + "/shell/tool.sh -r " + version))
+}
+
+func resolveUpdateInstallerURL() string {
+	value := strings.TrimSpace(config.ServerInfo.UpdateUrl)
+	if validHTTPSURL(value) {
+		return value
+	}
+	return common.FORK_UPDATE_URL
+}
+
+func shellQuote(value string) string {
+	return "'" + strings.ReplaceAll(value, "'", "'\"'\"'") + "'"
 }
 
 func (s *systemService) UpdateAssist() {

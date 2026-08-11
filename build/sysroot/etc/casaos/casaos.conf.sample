@@ -18,5 +18,7 @@ ServerApi = https://api.casaos.io/casaos-api
 Handshake = socket.casaos.io
 Token = 
 USBAutoMount =
+UpdateUrl = https://github.com/alvins82/CasaOS-Install/releases/latest/download/install.sh
+UpdateVersionUrl = https://github.com/alvins82/CasaOS-Install/releases/latest/download/version.json
 
 [system]

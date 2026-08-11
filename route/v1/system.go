@@ -16,7 +16,6 @@ import (
 
 	http2 "github.com/IceWhaleTech/CasaOS-Common/utils/http"
 	"github.com/IceWhaleTech/CasaOS-Common/utils/port"
-	"github.com/IceWhaleTech/CasaOS/common"
 	"github.com/IceWhaleTech/CasaOS/model"
 	"github.com/IceWhaleTech/CasaOS/pkg/config"
 	"github.com/IceWhaleTech/CasaOS/pkg/utils"
@@ -37,11 +36,11 @@ import (
 // @Success 200 {string} string "ok"
 // @Router /sys/version/check [get]
 func GetSystemCheckVersion(ctx echo.Context) error {
-	need, version := version.IsNeedUpdate(service.MyService.Casa().GetCasaosVersion())
+	need, latestVersion := version.IsNeedUpdate(service.MyService.Casa().GetCasaosVersion())
 	if need {
 		installLog := model2.AppNotify{}
 		installLog.State = 0
-		installLog.Message = "New version " + version.Version + " is ready, ready to upgrade"
+		installLog.Message = "New version " + latestVersion.Version + " is ready, ready to upgrade"
 		installLog.Type = types.NOTIFY_TYPE_NEED_CONFIRM
 		installLog.CreatedAt = strconv.FormatInt(time.Now().Unix(), 10)
 		installLog.UpdatedAt = strconv.FormatInt(time.Now().Unix(), 10)
@@ -50,8 +49,8 @@ func GetSystemCheckVersion(ctx echo.Context) error {
 	}
 	data := make(map[string]interface{}, 3)
 	data["need_update"] = need
-	data["version"] = version
-	data["current_version"] = common.VERSION
+	data["version"] = latestVersion
+	data["current_version"] = version.CurrentVersion()
 	return ctx.JSON(common_err.SUCCESS, model.Result{Success: common_err.SUCCESS, Message: common_err.GetMsg(common_err.SUCCESS), Data: data})
 }
 
@@ -63,9 +62,9 @@ func GetSystemCheckVersion(ctx echo.Context) error {
 // @Success 200 {string} string "ok"
 // @Router /sys/update [post]
 func SystemUpdate(ctx echo.Context) error {
-	need, version := version.IsNeedUpdate(service.MyService.Casa().GetCasaosVersion())
+	need, latestVersion := version.IsNeedUpdate(service.MyService.Casa().GetCasaosVersion())
 	if need {
-		service.MyService.System().UpdateSystemVersion(version.Version)
+		service.MyService.System().UpdateSystemVersion(latestVersion.Version)
 	}
 	return ctx.JSON(common_err.SUCCESS, model.Result{Success: common_err.SUCCESS, Message: common_err.GetMsg(common_err.SUCCESS)})
 }
@@ -87,7 +86,7 @@ func GetSystemConfigDebug(ctx echo.Context) error {
 	array := service.MyService.System().GetSystemConfigDebug()
 	disk := service.MyService.System().GetDiskInfo()
 	sys := service.MyService.System().GetSysInfo()
-	version := service.MyService.Casa().GetCasaosVersion()
+	latestVersion := service.MyService.Casa().GetCasaosVersion()
 	var bugContent string = fmt.Sprintf(`
 	 - OS: %s
 	 - CasaOS Version: %s
@@ -97,7 +96,7 @@ func GetSystemConfigDebug(ctx echo.Context) error {
 	 - Remote Version: %s
 	 - Browser: $Browser$ 
 	 - Version: $Version$
-`, sys.OS, common.VERSION, disk.Total>>20, disk.Used>>20, array, version.Version)
+`, sys.OS, version.CurrentVersion(), disk.Total>>20, disk.Used>>20, array, latestVersion.Version)
 
 	//	array = append(array, fmt.Sprintf("disk,total:%v,used:%v,UsedPercent:%v", disk.Total>>20, disk.Used>>20, disk.UsedPercent))
 

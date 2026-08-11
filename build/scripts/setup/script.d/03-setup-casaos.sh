@@ -67,3 +67,21 @@ SETUP_SCRIPT_FILEPATH="${SETUP_SCRIPT_DIRECTORY}/${SETUP_SCRIPT_FILENAME}"
 }
 
 echo "✅ ${SETUP_SCRIPT_FILENAME} finished."
+
+CASAOS_CONFIG_FILE=${CASAOS_CONFIG_FILE:-/etc/casaos/casaos.conf}
+FORK_UPDATE_URL=https://github.com/alvins82/CasaOS-Install/releases/latest/download/install.sh
+FORK_VERSION_URL=https://github.com/alvins82/CasaOS-Install/releases/latest/download/version.json
+
+__set_server_config_value() {
+	local key=$1
+	local value=$2
+
+	if grep -q "^${key}[[:space:]]*=" "${CASAOS_CONFIG_FILE}"; then
+		sed -i "s#^${key}[[:space:]]*=.*#${key} = ${value}#" "${CASAOS_CONFIG_FILE}"
+	else
+		sed -i "/^\[server\]$/a${key} = ${value}" "${CASAOS_CONFIG_FILE}"
+	fi
+}
+
+__set_server_config_value UpdateUrl "${FORK_UPDATE_URL}"
+__set_server_config_value UpdateVersionUrl "${FORK_VERSION_URL}"

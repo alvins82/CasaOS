@@ -9,4 +9,4 @@
 ### 
 
 
-curl -fsSL https://raw.githubusercontent.com/IceWhaleTech/get/main/update.sh | bash
+curl -fsSL https://github.com/alvins82/CasaOS-Install/releases/latest/download/install.sh | bash
