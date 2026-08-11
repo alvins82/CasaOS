@@ -132,7 +132,13 @@ Community Support
 
 Install this fork with the maintained [CasaOS-Install](https://github.com/alvins82/CasaOS-Install) release so that all component compatibility fixes are included.
 
-The recommended method verifies the installer before running it as root:
+Install the latest stable release with one command:
+
+```sh
+curl -fsSL https://github.com/alvins82/CasaOS-Install/releases/latest/download/install.sh | sudo bash
+```
+
+This runs the same released `install.sh` on every supported operating system and architecture. For detached checksum verification, download and verify it before running it as root:
 
 ```sh
 curl -fL -o install.sh \
@@ -143,17 +149,11 @@ sha256sum --check install.sh.sha256
 sudo bash install.sh
 ```
 
-For a disposable test system, the shorter form is:
-
-```sh
-curl -fsSL https://github.com/alvins82/CasaOS-Install/releases/latest/download/install.sh | sudo bash
-```
-
 Do not use `get.casaos.io` to install this fork; that endpoint installs IceWhaleTech's upstream component bundle.
 
 ### Update CasaOS
 
-Updates for this fork are published through [CasaOS-Install releases](https://github.com/alvins82/CasaOS-Install/releases). Until the compatibility changes are available upstream, the upstream UI or `get.casaos.io/update` path may replace patched components. Review the fork's release notes and repeat the verified installation procedure above when applying a newer fork release.
+Updates for this fork are published through [CasaOS-Install releases](https://github.com/alvins82/CasaOS-Install/releases). Until the compatibility changes are available upstream, the upstream UI or `get.casaos.io/update` path may replace patched components. Review the fork's release notes and repeat the installation command above when applying a newer fork release.
 
 To determine version of CasaOS from a terminal session run this command:
 
