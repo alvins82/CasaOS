@@ -1,4 +1,4 @@
 [submodule "UI"]
 	path = UI
-	url = https://github.com/IceWhaleTech/CasaOS-UI.git
+	url = https://github.com/alvins82/CasaOS-UI.git
 	branch = main
