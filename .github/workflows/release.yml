@@ -25,6 +25,9 @@ jobs:
           go-version-file: go.mod
           cache: true
 
+      - name: Generate API clients
+        run: go generate
+
       - name: Build release packages
         shell: bash
         env:
