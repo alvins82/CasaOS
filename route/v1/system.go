@@ -3,6 +3,7 @@ package v1
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -69,6 +70,85 @@ func SystemUpdate(ctx echo.Context) error {
 		}
 	}
 	return ctx.JSON(common_err.SUCCESS, model.Result{Success: common_err.SUCCESS, Message: common_err.GetMsg(common_err.SUCCESS)})
+}
+
+// @Summary check for operating system package updates
+// @Produce application/json
+// @Tags sys
+// @Security ApiKeyAuth
+// @Success 200 {object} model.Result
+// @Router /sys/packages [get]
+func GetSystemPackageUpdates(ctx echo.Context) error {
+	updates, err := service.MyService.System().GetSystemPackageUpdates()
+	if err != nil {
+		if errors.Is(err, service.ErrSystemPackageUpdateRunning) {
+			return ctx.JSON(http.StatusConflict, model.Result{
+				Success: http.StatusConflict,
+				Message: err.Error(),
+				Data:    updates,
+			})
+		}
+		return ctx.JSON(http.StatusInternalServerError, model.Result{
+			Success: http.StatusInternalServerError,
+			Message: err.Error(),
+		})
+	}
+	return ctx.JSON(http.StatusOK, model.Result{
+		Success: common_err.SUCCESS,
+		Message: common_err.GetMsg(common_err.SUCCESS),
+		Data:    updates,
+	})
+}
+
+// @Summary start operating system package updates
+// @Produce application/json
+// @Tags sys
+// @Security ApiKeyAuth
+// @Success 200 {object} model.Result
+// @Router /sys/packages/update [post]
+func StartSystemPackageUpdate(ctx echo.Context) error {
+	status, err := service.MyService.System().StartSystemPackageUpdate()
+	if err != nil {
+		if errors.Is(err, service.ErrSystemPackageUpdateRunning) {
+			return ctx.JSON(http.StatusConflict, model.Result{
+				Success: http.StatusConflict,
+				Message: err.Error(),
+				Data:    status,
+			})
+		}
+		if errors.Is(err, service.ErrSystemPackageUpdatesUnsupported) {
+			return ctx.JSON(http.StatusNotImplemented, model.Result{
+				Success: http.StatusNotImplemented,
+				Message: err.Error(),
+				Data:    status,
+			})
+		}
+		return ctx.JSON(http.StatusInternalServerError, model.Result{
+			Success: http.StatusInternalServerError,
+			Message: err.Error(),
+			Data:    status,
+		})
+	}
+	return ctx.JSON(http.StatusOK, model.Result{
+		Success: common_err.SUCCESS,
+		Message: common_err.GetMsg(common_err.SUCCESS),
+		Data:    status,
+	})
+}
+
+// @Summary get operating system package update status
+// @Produce application/json
+// @Tags sys
+// @Security ApiKeyAuth
+// @Success 200 {object} model.Result
+// @Router /sys/packages/update/status [get]
+func GetSystemPackageUpdateStatus(ctx echo.Context) error {
+	status := service.MyService.System().GetSystemPackageUpdateStatus()
+	return ctx.JSON(http.StatusOK, model.Result{
+		Success: common_err.SUCCESS,
+		Message: common_err.GetMsg(common_err.SUCCESS),
+		Data:    status,
+	})
 }
 
 // @Summary  get logs

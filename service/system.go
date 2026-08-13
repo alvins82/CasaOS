@@ -37,6 +37,9 @@ import (
 
 type SystemService interface {
 	UpdateSystemVersion(version string) error
+	GetSystemPackageUpdates() (SystemPackageUpdates, error)
+	StartSystemPackageUpdate() (SystemPackageUpdateStatus, error)
+	GetSystemPackageUpdateStatus() SystemPackageUpdateStatus
 	GetSystemConfigDebug() []string
 	GetCasaOSLogs(lineNumber int) string
 	UpdateAssist()
@@ -68,7 +71,9 @@ type SystemService interface {
 	GetSystemEntry() string
 	GenreateSystemEntry()
 }
-type systemService struct{}
+type systemService struct {
+	packageUpdates *systemPackageUpdater
+}
 
 func (c *systemService) GetDeviceInfo() model.DeviceInfo {
 	m := model.DeviceInfo{}
@@ -586,5 +591,5 @@ func (s *systemService) SystemShutdown() error {
 }
 
 func NewSystemService() SystemService {
-	return &systemService{}
+	return &systemService{packageUpdates: newSystemPackageUpdater()}
 }
