@@ -27,6 +27,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Storage] Preserve existing system data during merge initialization and restore it safely when the merged view is removed.
 
+## [0.4.21] - 2026-08-12
+
+### Added
+
+- [App] Open installed apps inside the CasaOS dashboard in a full-screen iframe with a close button; first-launch readiness checks remain in the current tab ([CasaOS-UI #2](https://github.com/alvins82/CasaOS-UI/pull/2)).
+
+### Changed
+
+- [Build] Updated the CasaOS-UI submodule to the fork commit containing the in-page app launcher.
+
 ## [0.4.20] - 2026-08-12
 
 ### Added
