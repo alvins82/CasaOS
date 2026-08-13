@@ -16,12 +16,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
-## [0.4.25] - 2026-08-12
+## [0.4.25] - 2026-08-13
+
+### Added
+
+- [System] Added authenticated Debian-family system package updates in Settings, including package review, confirmation, live progress, reboot status, and completion reconciliation ([CasaOS #20](https://github.com/alvins82/CasaOS/pull/20); [CasaOS-UI #10](https://github.com/alvins82/CasaOS-UI/pull/10)).
 
 ### Changed
 
-- [Storage] Keep the system storage branch out of `/DATA` merged storage. External disks now provide the mergerfs branches while system AppData remains available at `/DATA/AppData`, allowing CasaOS to be installed on a flash drive without consuming it as media storage.
-- [Updater] Advance the fork release fallback to `v0.4.25` so installations without a release marker still discover the current fork installer.
+- [Storage] Keep the system storage branch out of `/DATA` merged storage. External disks now provide the mergerfs branches while system AppData remains available at `/DATA/AppData`, allowing CasaOS to be installed on a flash drive without consuming it as media storage ([CasaOS #19](https://github.com/alvins82/CasaOS/pull/19); [CasaOS-UI #7](https://github.com/alvins82/CasaOS-UI/pull/7); [CasaOS-LocalStorage #4](https://github.com/alvins82/CasaOS-LocalStorage/pull/4)).
+- [Updater] Advance the fork release fallback to `v0.4.25` so installations without a release marker still discover the current fork installer ([CasaOS #19](https://github.com/alvins82/CasaOS/pull/19)).
+- [Build] Update the CasaOS-UI submodule to the merged system-package-update UI commit ([CasaOS #20](https://github.com/alvins82/CasaOS/pull/20)).
+- [Docs] Record the fork UI release and related storage/app-launcher changes in the README ([CasaOS #16](https://github.com/alvins82/CasaOS/pull/16); [CasaOS #17](https://github.com/alvins82/CasaOS/pull/17); [CasaOS #18](https://github.com/alvins82/CasaOS/pull/18)).
 
 ### Fixed
 
