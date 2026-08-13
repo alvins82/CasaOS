@@ -16,6 +16,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.4.26] - 2026-08-13
+
+### Added
+
+- [Files] Open the Files app in an App Store-style dialog on desktop while retaining edge-to-edge behavior on smaller screens ([CasaOS #21](https://github.com/alvins82/CasaOS/pull/21); [CasaOS-UI #11](https://github.com/alvins82/CasaOS-UI/pull/11)).
+- [Storage] Add storage-volume rename controls backed by the protected LocalStorage rename endpoint ([CasaOS-UI #14](https://github.com/alvins82/CasaOS-UI/pull/14); [CasaOS-LocalStorage #6](https://github.com/alvins82/CasaOS-LocalStorage/pull/6)).
+
+### Changed
+
+- [Dashboard] Keep the sidebar in normal document flow so the dashboard has one scroll surface and lower widgets remain reachable ([CasaOS-UI #12](https://github.com/alvins82/CasaOS-UI/pull/12)).
+- [Build] Update the CasaOS-UI submodule to the CasaOS UI `v0.4.29` release.
+
+### Fixed
+
+- [Files] Use the CasaOS icon font's `eye-outline` and `eye-off-outline` glyphs for the hidden-files toggle ([CasaOS-UI #13](https://github.com/alvins82/CasaOS-UI/pull/13)).
+- [Storage] Refresh filesystem labels after volume renames so Storage Manager reflects the new label immediately ([CasaOS-LocalStorage #6](https://github.com/alvins82/CasaOS-LocalStorage/pull/6)).
+
 ## [0.4.25] - 2026-08-13
 
 ### Added
