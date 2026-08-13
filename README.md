@@ -89,12 +89,14 @@ The installer stops and restarts CasaOS services while upgrading, so back up imp
 cat /var/lib/casaos/fork-release
 ```
 
-The command should print the fork release tag installed on the system, such as `v0.4.21` for the current release.
+The command should print the fork release tag installed on the system, such as `v0.4.25` for the current release.
 
 Future updates can be installed from the CasaOS dashboard or by running the same command again. Do not use `get.casaos.io/update` after migrating, because it installs IceWhale's upstream component bundle.
 
 ## Fork Changelog
 
+- **2026-08-12 — [v0.4.25](https://github.com/alvins82/CasaOS-Install/releases/tag/v0.4.25):** Kept system storage out of merged `/DATA` storage while preserving system AppData at `/DATA/AppData`, so installations on flash drives can use external disks for media storage.
+- **2026-08-12 — [v0.4.21](https://github.com/alvins82/CasaOS-Install/releases/tag/v0.4.21):** Fixed fresh one-line installs and CasaOS Storage Manager merges on mergerfs 2.40, including persistent multi-disk pools on Ubuntu 26. PRs: [LocalStorage #2](https://github.com/alvins82/CasaOS-LocalStorage/pull/2), [LocalStorage #3](https://github.com/alvins82/CasaOS-LocalStorage/pull/3), [installer #11](https://github.com/alvins82/CasaOS-Install/pull/11).
 - **2026-08-12 — [CasaOS-UI v0.4.25](https://github.com/alvins82/CasaOS-UI/releases/tag/v0.4.25):** Added the dedicated merged-storage tab, framed in-page app dialogs like App Store modals, applied the existing CasaOS zoom transition, and retained the close button with responsive full-screen behavior on mobile. PRs: [CasaOS-UI #1](https://github.com/alvins82/CasaOS-UI/pull/1), [CasaOS-UI #3](https://github.com/alvins82/CasaOS-UI/pull/3).
 - **2026-08-12 — [v0.4.21](https://github.com/alvins82/CasaOS-Install/releases/tag/v0.4.21):** Added the CasaOS-UI v0.4.21 in-page app launcher so installed apps open inside the dashboard with a close button. Also fixed fresh one-line installs and CasaOS Storage Manager merges on mergerfs 2.40, including persistent multi-disk pools on Ubuntu 26. PRs: [CasaOS-UI #2](https://github.com/alvins82/CasaOS-UI/pull/2), [CasaOS #14](https://github.com/alvins82/CasaOS/pull/14), [CasaOS-Install #12](https://github.com/alvins82/CasaOS-Install/pull/12), [LocalStorage #2](https://github.com/alvins82/CasaOS-LocalStorage/pull/2), [LocalStorage #3](https://github.com/alvins82/CasaOS-LocalStorage/pull/3), [installer #11](https://github.com/alvins82/CasaOS-Install/pull/11).
 - **2026-08-12 — [v0.4.20](https://github.com/alvins82/CasaOS-Install/releases/tag/v0.4.20):** Fixed OneDrive identity resolution by falling back to `createdBy.user.displayName` when Microsoft Graph omits `createdBy.user.email`, and returning a clear error when neither field is available. PR: [CasaOS #2530](https://github.com/IceWhaleTech/CasaOS/pull/2530).
