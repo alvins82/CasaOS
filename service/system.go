@@ -571,21 +571,21 @@ func (s *systemService) GetCPUPower() map[string]string {
 }
 
 func (s *systemService) SystemReboot() error {
-	arg := []string{"6"}
-	cmd := exec2.Command("init", arg...)
-	_, err := cmd.CombinedOutput()
-	if err != nil {
-		return err
-	}
-	return nil
+	return runSystemctlPowerAction("reboot")
 }
 
 func (s *systemService) SystemShutdown() error {
-	arg := []string{"0"}
-	cmd := exec2.Command("init", arg...)
-	_, err := cmd.CombinedOutput()
+	return runSystemctlPowerAction("poweroff")
+}
+
+func runSystemctlPowerAction(action string) error {
+	cmd := exec2.Command("systemctl", "--no-block", action)
+	output, err := cmd.CombinedOutput()
 	if err != nil {
-		return err
+		if message := strings.TrimSpace(string(output)); message != "" {
+			return fmt.Errorf("systemctl %s: %w: %s", action, err, message)
+		}
+		return fmt.Errorf("systemctl %s: %w", action, err)
 	}
 	return nil
 }
