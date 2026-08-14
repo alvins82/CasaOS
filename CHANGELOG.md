@@ -16,6 +16,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.4.27] - 2026-08-14
+
+### Added
+
+- [Sharing] Advertise CasaOS Samba hosts through mDNS/DNS-SD and Windows Web Service Discovery so macOS, Linux, and Windows clients can discover the host without SMB1 ([CasaOS #23](https://github.com/alvins82/CasaOS/pull/23)).
+
+### Changed
+
+- [Sharing] Bind Windows discovery to default-route LAN interfaces, support an optional `/etc/casaos/smb-discovery.conf` interface override, and keep discovery aligned with the `smbd` lifecycle.
+- [Updater] Advance the fork release fallback to `v0.4.31` so installations without a release marker discover the current fork installer.
+
+### Fixed
+
+- [Sharing] Preserve administrator-managed Samba configurations and make unavailable Avahi/wsdd packages degrade to normal SMB sharing without blocking installation or upgrades.
+
 ## [0.4.26] - 2026-08-13
 
 ### Added
