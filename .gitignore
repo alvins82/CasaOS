@@ -39,5 +39,12 @@ dist
 CasaOS
 /codegen
 
+# CasaOS SMB discovery runtime assets
+!build/sysroot/etc/casaos/
+!build/sysroot/usr/share/casaos/
+!build/sysroot/usr/share/casaos/shell/
+!build/sysroot/etc/casaos/smb-discovery.conf.sample
+!build/sysroot/usr/share/casaos/shell/smb-discovery.sh
+
 # System Files
 .DS_Store

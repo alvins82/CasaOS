@@ -150,6 +150,7 @@ func (s *sharesStruct) InitSambaConfig() {
    fruit:zero_file_id = yes
    fruit:wipe_intentionally_left_blank_rfork = yes
    fruit:delete_empty_adfiles = yes
+   multicast dns register = yes
    map to guest = bad user
    include=/etc/samba/smb.casa.conf`
 		file.WriteToPath([]byte(smbConf), "/etc/samba", "smb.conf")
