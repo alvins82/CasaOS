@@ -1,0 +1,4 @@
+# Optional interface override for CasaOS SMB discovery.
+# Leave empty to use the default-route LAN interface(s).
+# Multiple interfaces may be separated with commas or spaces.
+Interfaces=

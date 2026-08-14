@@ -1,0 +1,22 @@
+[Unit]
+Description=CasaOS SMB Web Service Discovery
+Documentation=https://github.com/christgau/wsdd
+Wants=network-online.target
+After=network-online.target smbd.service
+Requires=smbd.service
+PartOf=smbd.service
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /usr/share/casaos/shell/smb-discovery.sh
+Restart=on-failure
+RestartSec=5s
+DynamicUser=yes
+NoNewPrivileges=yes
+ProtectSystem=full
+ProtectHome=yes
+PrivateTmp=yes
+RestrictAddressFamilies=AF_INET AF_INET6
+
+[Install]
+WantedBy=multi-user.target
