@@ -16,6 +16,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.4.28] - 2026-08-15
+
+### Changed
+
+- [System] Use systemd's explicit `poweroff` and `reboot` targets for Dashboard power actions on systemd-based hosts ([CasaOS #26](https://github.com/alvins82/CasaOS/pull/26)).
+- [Build] Advance the CasaOS-UI submodule to the CasaOS UI `v0.4.30` release, including the shutdown/restart flow fix ([CasaOS-UI #15](https://github.com/alvins82/CasaOS-UI/pull/15)).
+
+### Fixed
+
+- [System] Return power-command failures from the API instead of reporting success when the host remains running ([CasaOS #26](https://github.com/alvins82/CasaOS/pull/26)).
+
 ## [0.4.27] - 2026-08-14
 
 ### Added
