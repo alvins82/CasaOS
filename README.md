@@ -89,12 +89,13 @@ The installer stops and restarts CasaOS services while upgrading, so back up imp
 cat /var/lib/casaos/fork-release
 ```
 
-The command should print the fork release tag installed on the system, such as `v0.4.33` for the current release.
+The command should print the fork release tag installed on the system, such as `v0.4.34` for the current release.
 
 Future updates can be installed from the CasaOS dashboard or by running the same command again. Do not use `get.casaos.io/update` after migrating, because it installs IceWhale's upstream component bundle.
 
 ## Fork Changelog
 
+- **2026-08-15 — [CasaOS Install v0.4.34](https://github.com/alvins82/CasaOS-Install/releases/tag/v0.4.34):** Corrected the installer SHA-256 values for the fork packages after v0.4.33 upgrades stopped during checksum verification, and republished the compatibility overlay with the matching release marker.
 - **2026-08-15 — [CasaOS Install v0.4.33](https://github.com/alvins82/CasaOS-Install/releases/tag/v0.4.33):** Published the full fork bundle with [CasaOS v0.4.28](https://github.com/alvins82/CasaOS/releases/tag/v0.4.28) and [CasaOS-UI v0.4.30](https://github.com/alvins82/CasaOS-UI/releases/tag/v0.4.30), including the systemd power-action and shutdown UI fixes. PRs: [CasaOS #26](https://github.com/alvins82/CasaOS/pull/26) and [CasaOS-UI #15](https://github.com/alvins82/CasaOS-UI/pull/15).
 - **2026-08-15 — [CasaOS v0.4.28](https://github.com/alvins82/CasaOS/releases/tag/v0.4.28):** Fixed Dashboard shutdown and restart actions on systemd-based hosts by using explicit systemd power targets, propagating command failures, and advancing the bundled UI to [CasaOS-UI v0.4.30](https://github.com/alvins82/CasaOS-UI/releases/tag/v0.4.30). PRs: [CasaOS #26](https://github.com/alvins82/CasaOS/pull/26) and [CasaOS-UI #15](https://github.com/alvins82/CasaOS-UI/pull/15).
 - **2026-08-15 — [CasaOS-UI v0.4.30](https://github.com/alvins82/CasaOS-UI/releases/tag/v0.4.30):** Kept restart polling while stopping shutdown reloads and surfacing power API failures. PR: [CasaOS-UI #15](https://github.com/alvins82/CasaOS-UI/pull/15).
