@@ -25,7 +25,7 @@
     "generate"
   ],
   "dependencies": {
-    "axios": "^1.1.0"
+    "axios": "1.11.0"
   },
   "devDependencies": {
     "all-contributors-cli": "^6.24.0",

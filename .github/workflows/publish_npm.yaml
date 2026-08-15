@@ -38,7 +38,7 @@ jobs:
       - name: Generate SDK
         run: |
           npm cache clean --force
-          npm install @openapitools/openapi-generator-cli -g
+          npm install @openapitools/openapi-generator-cli@2.5.2 -g
       - run: npm i
       - run: npm run start
       - run: npm publish --access public
